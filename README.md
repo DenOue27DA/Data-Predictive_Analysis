@@ -2,4 +2,4 @@
 This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Predictive Analysis
 ## Unit 1 - Introduction to R
 ### Assignments
-  [Assignment 1: Working with Databases]()
+  [Assignment 1: Working with Databases](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%201.R)
