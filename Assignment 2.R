@@ -4,7 +4,7 @@
 library(tidyverse)
 
 #Step 2
-titanicData1 <- read_csv("titanic.csv")
+titanicData <- read_csv("titanic.csv")
 
 #Step 3
 glimpse(titanicData)
