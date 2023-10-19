@@ -4,5 +4,5 @@ This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Pr
 ### Assignments
   [Assignment 1: Working with Databases](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%201.R)
 
-## Unit 2 - Data Wrangling
+## Unit 2 - Data Wrangling & Visualization
 ### Assignments
