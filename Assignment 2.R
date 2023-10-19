@@ -53,6 +53,6 @@ titanicData %>% ggplot(aes(x=age, y=fare))+geom_point(color="navy")+geom_smooth(
   #scatterplot showing fare and age data pairs. 
   #geom_smooth feature added to show trendline. 
 
-titanicData %>% ggplot(aes(y=fare,x=0))+geom_boxplot()+facet_wrap(~class, scales = "free")+geom_point()
+titanicData %>% ggplot(aes(y=fare,x="passenger"))+geom_boxplot()+facet_wrap(~class, scales = "free")+geom_point()+theme(axis.title.x = element_blank())
   #fare paid by class of passenger presented in boxplots by class. 
 
