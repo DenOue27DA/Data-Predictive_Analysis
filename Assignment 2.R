@@ -43,20 +43,16 @@ titanicData$alive <- factor(titanicData$alive)
 
 #Step 7
 
-titanicData %>% ggplot(aes(age))+geom_histogram(bins=80,color=I("green"))
-+scale_x_continuous()
+titanicData %>% ggplot(aes(age))+geom_histogram(bins=80,color=I("green"))+scale_x_continuous()
   #Age distribution of passengers on the titanic shown on a histogram
 
-titanicData %>% ggplot(aes(x=sex,fill=sex))+geom_bar(alpha=1.8)
-+theme_dark()+scale_fill_manual(values =c("blue","violet"))
+titanicData %>% ggplot(aes(x=sex,fill=sex))+geom_bar(alpha=1.8)+theme_dark()+scale_fill_manual(values =c("blue","violet"))
   #Counts of sex (male vs female) shown as a bar chart. 
 
-titanicData %>% ggplot(aes(x=age, y=fare))+geom_point(color="navy")
-+geom_smooth(color="hotpink")
+titanicData %>% ggplot(aes(x=age, y=fare))+geom_point(color="navy")+geom_smooth(color="hotpink")
   #scatterplot showing fare and age data pairs. 
   #geom_smooth feature added to show trendline. 
 
-titanicData %>% ggplot(aes(y=fare,x=0))+geom_boxplot()
-+facet_wrap(~class, scales = "free")+geom_point()
+titanicData %>% ggplot(aes(y=fare,x=0))+geom_boxplot()+facet_wrap(~class, scales = "free")+geom_point()
   #fare paid by class of passenger presented in boxplots by class. 
 
