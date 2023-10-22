@@ -7,3 +7,7 @@ This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Pr
 ## Unit 2 - Data Wrangling & Visualization
 ### Assignments
   [Assignment 2: Wrangling & Visulization](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%202.R)
+
+## Unit 3 - Understanding Data Using SQL
+### Assignments
+  [Assignment 3: Using SQL in R]()
