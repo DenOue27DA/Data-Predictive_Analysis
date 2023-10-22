@@ -10,4 +10,4 @@ This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Pr
 
 ## Unit 3 - Understanding Data Using SQL
 ### Assignments
-  [Assignment 3: Using SQL in R]()
+  [Assignment 3: Using SQL in R](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%203.Rmd)
