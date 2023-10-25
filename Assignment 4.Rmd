@@ -1,0 +1,139 @@
+---
+title: ""
+output: html_document
+date: "2023-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment 4 - Linear Regression with R
+
+Denis Ouellette
+
+### Loading Necessary Packages
+
+```{r}
+library(tidyverse)
+
+```
+
+### Uploading the Datasets:
+
+```{r}
+setwd("C:/Users/denis/OneDrive/Desktop/Predictive Analysis 420/Datasets")
+CoffeeBloodPressure <- read.csv("coffee_bloodPressure.csv")
+DentalData <- read.csv("dentalService.csv")
+```
+
+## Question 1: Coffee & Blood Pressure
+
+### Task 1
+
+```{r}
+CorrelationCoffee <- as.character(cor(CoffeeBloodPressure$Cups.of.Coffee,CoffeeBloodPressure$Blood.Pressure..Systolic.Pressure.))
+
+CoffeeBloodPressure %>% ggplot(aes(x=Cups.of.Coffee,y=Blood.Pressure..Systolic.Pressure.))+geom_point()+ geom_smooth(method="lm",se=FALSE,color="navy",formula=y~x,fullrange=TRUE)+ scale_x_continuous(limits = c(0,10))+scale_y_continuous(limits=c(100,180))+xlab("Cups of Coffee")+ylab("Blood Pressure")+geom_text(x=5,y=178,label = paste("Correlation =",CorrelationCoffee))
+
+
+```
+
+### Task 2
+
+There is a positive linear relationship between the Cups of Coffee drank in a day and the resulting blood pressure recorded for the 48 participants in this sample.
+
+A Multiple R of 0.2884 shows a fairly weak correlation.
+
+A Doctor may recommend reducing the amount of coffee you drink in a day to help relieve high blood pressure.
+
+### Task 3
+
+Creating a training model using 75% of dataset (36 observations):
+
+```{r}
+#make reproducible
+set.seed(1)
+#ID column
+CoffeeBloodPressure$id <- 1:nrow(CoffeeBloodPressure)
+#use 75% of dataset as training set and 25% as test set
+training <- CoffeeBloodPressure %>% sample_frac(0.75)
+
+testing  <- anti_join(CoffeeBloodPressure, training, by = 'id')
+
+linearmodel <- lm(Blood.Pressure..Systolic.Pressure. ~ Cups.of.Coffee, data=training)
+
+summary(linearmodel)
+
+training %>% ggplot(aes(x=Cups.of.Coffee,y=Blood.Pressure..Systolic.Pressure.))+geom_point()+ geom_smooth(method="lm",se=FALSE,color="navy",formula=y~x,fullrange=TRUE)+ scale_x_continuous(limits = c(0,10))+scale_y_continuous(limits=c(100,180))+xlab("Cups of Coffee")+ylab("Blood Pressure")
+```
+
+Using the model to predict blood pressure values when drinking 6 and 8 cups of coffee:
+
+```{r}
+predict(linearmodel,data.frame(Cups.of.Coffee=c(6,8)))
+```
+
+The full regression model would predict the following when drinking 6 and 8 cups of coffee:
+
+```{r}
+CoffeeBloodPressureRegression <- lm(Blood.Pressure..Systolic.Pressure.~Cups.of.Coffee,data=CoffeeBloodPressure)
+
+predict(CoffeeBloodPressureRegression,data.frame(Cups.of.Coffee=c(6,8)))
+```
+
+## Question 2: Dental Services
+
+First we must convert data into numerical in order to plot and run models:
+
+```{r}
+DentalData$Income..K.<-as.numeric(str_trim(substring(DentalData$Income..K.,3)))
+
+DentalData$Price<-as.numeric(str_trim(substring(DentalData$Price,3)))
+```
+
+#### Task 1 & 2
+
+Creating a training model using 35/49 \~ 71.4% of the observations:
+
+```{r}
+#make reproducible
+set.seed(1)
+#ID column
+DentalData$id <- 1:nrow(DentalData)
+#use (5/7)~71.4% of dataset as training set and (2/7)% as test set
+training1 <- DentalData %>% sample_frac(5/7)
+
+testing1  <- anti_join(DentalData, training, by = 'id')
+
+linearmodel1 <- lm(Income..K. ~ Price, data=training1)
+
+summary(linearmodel1)
+
+training1 %>% ggplot(aes(x=Price,y=Income..K.))+geom_point()+ geom_smooth(method="lm",se=FALSE,color="navy",formula=y~x,fullrange=TRUE)+ylab("Income")
+
+```
+
+There is a strong positive relationship between the price of the mobile dental services and the income generated.
+
+#### Task 3
+
+Using the model to predict the Income at price points of \$50 and \$200:
+
+```{r}
+PricePredictions <- predict(linearmodel1,data.frame(Price=c(50,250)))
+```
+
+#### Task 4
+
+Using the predictions above to create the new data points and then add them to our previous linear regression scatter plot:
+
+```{r}
+Point1 <- as.numeric(c(64.77291,NA,50,NA))
+Point2 <- as.numeric(c(357.56893,NA,250,NA))
+
+DentalDataNew <- rbind(training1,Point1,Point2)
+
+DentalDataNew %>% ggplot(aes(x=Price,y=Income..K.))+geom_point()+ geom_smooth(method="lm",se=FALSE,color="navy",formula=y~x,fullrange=TRUE)+ylab("Income")
+
+```
