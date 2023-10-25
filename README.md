@@ -14,4 +14,4 @@ This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Pr
 
 ## Unit 4 - Supervised Models (Linear Regression)
 ### Assignments
-  [Assignment 4: Linear Regression]
+  [Assignment 4: Linear Regression](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%204.Rmd)
