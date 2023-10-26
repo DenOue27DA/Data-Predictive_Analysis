@@ -38,7 +38,7 @@ MSleepData <- MSleepData %>% drop_na(brainwt)
   #dropping NA values
  
 VoreCategory <- MSleepData$vore
-  #Taking out feature we will try to cluster by
+  #Taking out feature we will compare our clusters to
 
 MSleepData1 <- select(MSleepData,c('sleep_total','sleep_rem'))
   #removing incomplete data features to obtain final dataset for modelling. 
