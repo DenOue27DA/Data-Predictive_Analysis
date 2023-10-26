@@ -19,4 +19,4 @@ This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Pr
 
 ## Unit 5 - Unsupervised Models/Learning
 ### Assignments
-[Assignment 5: k-Means Algorithm]()
+[Assignment 5: k-Means Algorithm](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%205.Rmd)
