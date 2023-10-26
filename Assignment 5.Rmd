@@ -1,0 +1,104 @@
+---
+title: ""
+output: html_document
+date: "2023-10-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# [Assignment 5 - k-Means Algorithm]{.underline}
+
+Denis Ouellette
+
+#### Loading the necessary libraries:
+
+```{r include=FALSE}
+library(tidyverse)
+library(stats)
+library(ggfortify)
+library(factoextra)
+```
+
+## Task 1: Uploading data into a data frame and cleaning.
+
+```{r}
+setwd("C:/Users/denis/OneDrive/Desktop/Predictive Analysis 420/Datasets")
+
+MSleepData <- read.csv("mammal_Sleep.csv")
+
+MSleepData <- MSleepData %>% drop_na(vore)
+  #dropping NA values
+
+MSleepData <- MSleepData %>% drop_na(sleep_rem)
+  #dropping NA values
+
+MSleepData <- MSleepData %>% drop_na(brainwt)
+  #dropping NA values
+ 
+VoreCategory <- MSleepData$vore
+  #Taking out feature we will try to cluster by
+
+MSleepData1 <- select(MSleepData,c('sleep_total','sleep_rem'))
+  #removing incomplete data features to obtain final dataset for modelling. 
+
+MSleepData1 <- scale(MSleepData1)
+```
+
+## Task 2: MSleepData1 will be used for k-means clustering.
+
+"VoreCategory" feature will serve as a cluster comparison having 4 distinct categories.
+
+```{r}
+head(MSleepData1)
+```
+
+## Task 3: Creating a k-means cluster model with 4 centroids.
+
+```{r}
+model_km <- kmeans(MSleepData1,centers = 4,nstart=6)
+
+autoplot(model_km,MSleepData1, frame = TRUE)
+
+```
+
+## Task 4: Including the centroids on the chart
+
+```{r}
+ModelClusters <- model_km$cluster
+  #Cluster labels vector
+
+ModelCentroids <- model_km$centers
+
+print(ModelCentroids)
+
+fviz_cluster(list(data=MSleepData1, cluster = ModelClusters),show.clust.cent = TRUE,labelsize = 1)
+
+
+```
+
+### Additional Inquiries: "vore" categories correspond with clusters?
+
+#### 1. "vore" categories correspond with clusters?
+
+Using a table, it is possible to assess whether there is a pattern with "vore" classifications and our models' clusters.
+
+```{r}
+table(ModelClusters,VoreCategory)
+```
+
+There appears to be no pattern...
+
+#### 2. Was four clusters an ideal number to use?
+
+We can use methods such as the "Elbow" or "Silhouette" to explore:
+
+```{r echo=TRUE}
+fviz_nbclust(MSleepData1, kmeans, method="wss") + labs(subtitle = "Elbow Method")
+
+fviz_nbclust(MSleepData1, kmeans, method="silhouette") + labs(subtitle = "Silhouette Method")
+
+```
+
+The results suggest 2 or 3 clusters may have been more optimal for the modelling.
