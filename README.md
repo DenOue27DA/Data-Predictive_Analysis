@@ -24,4 +24,4 @@ This repository consists of R Coding from [SAIT](https://sait.ca/) Course for Pr
 
 ## Unit 6 - Time Series
 ### Assignments
-[Assignment 6: Time Series Analysis]()
+[Assignment 6: Time Series Analysis](https://github.com/DenOue27DA/Data-Predictive_Analysis/blob/main/Assignment%206.Rmd)
