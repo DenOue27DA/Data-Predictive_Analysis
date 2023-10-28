@@ -1,0 +1,77 @@
+---
+title: ""
+output: html_document
+date: "2023-10-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# [Assignment 6: Time Series Analysis]{.underline}
+Denis Ouellette
+
+#### Loading the necessary packages:
+
+```{r}
+library(tidyverse)
+
+library(forecast)
+
+library(tseries)
+```
+
+## Loading the Dataset
+
+Steps below convert the data into time series type data for our modelling. The final dataset to be used with the model is 'retailTS1'.
+
+```{r}
+setwd("C:/Users/denis/OneDrive/Desktop/Predictive Analysis 420/Datasets")
+
+retailTS <- read.csv("retail_data.csv")
+
+retailTS1 <- select(retailTS,Sales)
+
+retailTS1 <- ts(retailTS1,frequency = 12,start=c(2018,1))
+
+head(retailTS1)
+tail(retailTS1)
+```
+
+## Creating a decomposition plot:
+
+```{r}
+plot(decompose(retailTS1))
+
+```
+
+## Modelling and Forecasting
+
+We will train an ARIMA model with the dataset. First we will smooth the data with a logarithmic transformation.
+
+```{r}
+logRetail <- log(retailTS1)
+
+arima_model <- auto.arima(logRetail)
+```
+
+Now we can create a 12-month forecast and return the 4,8 and 12 month predictions.
+
+```{r}
+retailForecast4 <- forecast(arima_model,4)
+
+retailForecast8 <- forecast(arima_model,8)
+
+retailForecast12 <- forecast(arima_model,12)
+
+print(retailForecast4)
+
+print(retailForecast8)
+
+print(retailForecast12)
+
+plot(retailForecast12)
+
+
+
+```
